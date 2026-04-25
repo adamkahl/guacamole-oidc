@@ -48,12 +48,12 @@ jobs:
         run: |
           docker build \
             --build-arg GUAC_VERSION=${VERSION} \
-            -t ghcr.io/${{ github.repository_owner }}/guacamole-oidc-single:${VERSION} \
-            -t ghcr.io/${{ github.repository_owner }}/guacamole-oidc-single:latest \
+            -t ghcr.io/${{ github.repository_owner }}/guacamole-oidc:${VERSION} \
+            -t ghcr.io/${{ github.repository_owner }}/guacamole-oidc:latest \
             .
 
       # 🚀 Push image
       - name: Push
         run: |
-          docker push ghcr.io/${{ github.repository_owner }}/guacamole-oidc-single:${VERSION}
-          docker push ghcr.io/${{ github.repository_owner }}/guacamole-oidc-single:latest
+          docker push ghcr.io/${{ github.repository_owner }}/guacamole-oidc:${VERSION}
+          docker push ghcr.io/${{ github.repository_owner }}/guacamole-oidc:latest
