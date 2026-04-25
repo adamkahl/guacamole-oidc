@@ -3,20 +3,20 @@ FROM guacamole/guacamole:${GUAC_VERSION}
 
 USER root
 
-# Install guacd + dumb-init for proper process handling
+# Install guacd + proper init
 RUN apt-get update && \
     apt-get install -y guacd dumb-init && \
     rm -rf /var/lib/apt/lists/*
 
-# Copy OpenID extension JAR (downloaded in your GitHub Action)
+# Copy OpenID extension
 COPY *.jar /opt/guacamole/extensions/
 
-# Enable env-based configuration + OpenID
+# Enable env config
 ENV ENABLE_ENVIRONMENT_PROPERTIES=true
 ENV EXTENSION_PRIORITY="*,openid"
 
-# Use dumb-init so signals/cleanup work properly
+# Use init for proper signal handling
 ENTRYPOINT ["/usr/bin/dumb-init", "--"]
 
-# Start guacd AND preserve the original Guacamole startup
-CMD ["/bin/bash", "-c", "/usr/sbin/guacd -f & exec /docker-entrypoint.sh"]
+# Run guacd, then exec the original entrypoint
+CMD ["/bin/bash", "-c", "/usr/sbin/guacd -f & exec /opt/guacamole/bin/entrypoint.sh"]
