@@ -1,4 +1,4 @@
-name: Build & Push Guacamole (Single Container OIDC)
+name: Build & Push Guacamole
 
 on:
   schedule:
