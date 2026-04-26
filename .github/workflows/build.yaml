@@ -28,15 +28,6 @@ jobs:
           echo "VERSION=$VERSION" >> $GITHUB_ENV
           echo "Using version: $VERSION"
 
-      # 📦 Download matching OpenID extension
-      - name: Download OpenID extension
-        run: |
-          curl -L -o sso.tar.gz \
-          https://downloads.apache.org/guacamole/${VERSION}/binary/guacamole-auth-sso-${VERSION}.tar.gz
-
-          tar -xzf sso.tar.gz
-          cp guacamole-auth-sso-${VERSION}/openid/*.jar .
-
       # 🔐 Login to GHCR
       - name: Login to GHCR
         run: |
